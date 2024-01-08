@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const MainContainer = () => {
   const leftMargin = useSelector((store) => store.app.mainContainerMargin);
-  console.log(leftMargin);
+  // console.log(leftMargin);
 
   return (
     <div className={`px-10 w-full ${leftMargin} `}>
