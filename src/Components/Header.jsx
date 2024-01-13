@@ -4,18 +4,23 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineVideocam } from "react-icons/md";
 import { MdNotificationsNone } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../Utils/appSlice";
 import { SEARCH_SUGGESTION_URL } from "../Utils/constant";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
+// import { Link } from "react-router-dom";
+import { saveSuggestions } from "../Utils/searchSlice";
+// import store from "../Utils/store";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestion, setShowSuggestion] = useState(false);
-  const [suggestionsHistory, setSuggestionsHistory] = useState({});
+  // const [suggestionsHistory, setSuggestionsHistory] = useState({});
+
+  const suggestionsHistory = useSelector((store) => store.search);
   const menuOpenHandler = () => {
     dispatch(toggleMenu());
   };
@@ -24,12 +29,21 @@ const Header = () => {
     const data = await fetch(SEARCH_SUGGESTION_URL + searchValue);
     const jsondata = await data.json();
     setSuggestions(jsondata[1]);
+    dispatch(
+      saveSuggestions({
+        [searchValue]: jsondata[1],
+      })
+    );
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      getSearchSuggestion();
-    }, 500);
+      if (suggestionsHistory[searchValue]) {
+        setSuggestions(suggestionsHistory[searchValue]);
+      } else {
+        getSearchSuggestion();
+      }
+    }, 200);
 
     return () => {
       clearTimeout(timer);
@@ -37,7 +51,7 @@ const Header = () => {
   }, [searchValue]);
 
   return (
-    <div className="p-2 px-5 flex justify-between shadow-md gap-10 fixed top-0 left-0 w-full bg-white z-50">
+    <div className="p-2 px-5 flex justify-between gap-10 fixed top-0 left-0 w-full bg-white z-50">
       {/* Hamberger menu and Logo */}
       <div className="flex gap-4 items-center min-w-fit">
         <button
@@ -46,6 +60,7 @@ const Header = () => {
         >
           <IoMenu />
         </button>
+        {/* <Link to={"/"}>Home</Link> */}
         <img
           className="h-5"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlHMUb8U4VeW2y-RflH7U7Yp0tsx1hJv0PwQ&usqp=CAU"
