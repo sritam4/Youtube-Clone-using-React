@@ -16,7 +16,7 @@ const ButtonList = () => {
     "Computers",
   ];
   return (
-    <div className="w-full flex overflow-x-scroll no-scrollbar fixed mt-[-6px] bg-white pt-2">
+    <div className="w-full flex overflow-x-scroll no-scrollbar fixed mt-[-6px] bg-white pt-2 z-10">
       {buttonNames.map((item, index) => {
         return (
           <div
