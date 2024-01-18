@@ -9,6 +9,12 @@ import VideoSuggestions from "./VideoSuggestions";
 import useFormattedViewsCount from "../Utils/useFormattedViewsCount";
 import { CHANNEL_API_URL } from "../Utils/constant";
 import { Markup } from "interweave";
+import useOnline from "../Utils/useOnline";
+import OfflinePage from "./OfflinePage";
+import useFormattedNumber from "../Utils/useFormattedNumber";
+import { BiLike } from "react-icons/bi";
+import { BiDislike } from "react-icons/bi";
+import { PiShareFatLight } from "react-icons/pi";
 
 const VideoPage = () => {
   const [searchParams] = useSearchParams();
@@ -18,10 +24,14 @@ const VideoPage = () => {
   const [channelInfo, setChannelInfo] = useState();
   const aspectRatio = 16 / 9;
   const timeDifference = useDateDifference(videoDetails?.snippet?.publishedAt);
-  const likes = useFormattedViewsCount(videoDetails?.statistics?.likeCount);
+  const likes = useFormattedNumber(videoDetails?.statistics?.likeCount);
+  const subscribers = useFormattedNumber(
+    channelInfo?.statistics?.subscriberCount
+  );
   const views = useFormattedViewsCount(videoDetails?.statistics?.viewCount);
   const [descHeight, setDescHeight] = useState("max-h-24");
   const channelId = videoDetails?.snippet?.channelId;
+  const isOnline = useOnline();
 
   const getVideoDetails = async () => {
     const data = await fetch(VIDEO_API_URL + videoId);
@@ -32,7 +42,7 @@ const VideoPage = () => {
   const getChannelProfile = async () => {
     const data = await fetch(CHANNEL_API_URL + channelId);
     const json = await data.json();
-    setChannelInfo(json?.items[0]?.snippet);
+    setChannelInfo(json?.items[0]);
   };
 
   const expandDescription = () => {
@@ -43,16 +53,19 @@ const VideoPage = () => {
 
   useEffect(() => {
     dispatch(closeMenu());
-    getVideoDetails();
+    videoId && getVideoDetails();
     // eslint-disable-next-line
   }, [videoId]);
 
   useEffect(() => {
     channelId && getChannelProfile();
+    // eslint-disable-next-line
   }, [channelId]);
 
+  if (!isOnline) return <OfflinePage />;
+
   return (
-    <div className="p-6 w-full flex justify-between">
+    <div className="p-6 w-full lg:flex justify-between">
       <div className="w-full lg:w-8/12 mb-28 ">
         {/* Video Section */}
         <div
@@ -73,31 +86,33 @@ const VideoPage = () => {
         </h1>
         {/* Video Info Section */}
         <div className="w-full flex justify-between py-3">
-          <section className="flex gap-4">
+          <div className="flex gap-4 min-w-fit">
             <img
               className="h-10 w-10 rounded-full"
-              src={channelInfo?.thumbnails?.default?.url}
+              src={channelInfo?.snippet?.thumbnails?.default?.url}
               alt="profile"
             />
             <h2 className="text-base font-semibold">
               {videoDetails?.snippet?.channelTitle}
+              <p className="text-xs text-gray-600">{subscribers}subscribers</p>
             </h2>
-            <button className="border text-sm bg-black text-white font-semibold px-4 rounded-full ml-5">
+            <button className="border text-sm bg-black text-white font-semibold px-4 h-10 rounded-full">
               Subscribe
             </button>
-          </section>
+          </div>
           <section className="flex text-base font-semibold">
-            <button className="border bg-gray-100 rounded-l-full px-4">
+            <button className="border bg-gray-100 rounded-l-full px-4 flex items-center gap-2">
+              <BiLike className="text-2xl" />
               {likes}
-              Like
             </button>
             <button className="border bg-gray-100 rounded-r-full px-4">
-              Dislike
+              <BiDislike className="text-2xl" />
             </button>
-            <button className="mx-1 border bg-gray-100 rounded-full px-4">
+            <button className="mx-1 border bg-gray-100 rounded-full px-4 flex items-center gap-2">
+              <PiShareFatLight className="text-2xl" />
               Share
             </button>
-            <button className="mx-1 border bg-gray-100 rounded-full px-4">
+            <button className="mx-1 border bg-gray-100 rounded-full px-4 sm:hidden">
               Download
             </button>
           </section>

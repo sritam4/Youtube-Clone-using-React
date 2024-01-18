@@ -21,19 +21,20 @@ const VideoCard = ({ snippet, statistics, id, contentDetails }) => {
     setChannelInfo(json?.items[0]?.snippet);
   };
   useEffect(() => {
-    getChannelInfo();
+    channelId && getChannelInfo();
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <div className="m-3 w-80">
+    <div className="m-1 max-w-sm">
       <Link to={"/watch?v=" + id} key={id}>
-        <div className="relative">
-          <img className=" rounded-lg" src={url} alt="thumbnail" />
+        <div className="relative w-full ">
+          <img className="w-96 rounded-lg" src={url} alt="thumbnail" />
           <p className=" absolute bottom-1 right-1 bg-black bg-opacity-80 text-xs text-white p-1 rounded-md">
             {duration}
           </p>
         </div>
-        <div className="flex overflow-hidden">
+        <div className="flex overflow-hidden w-full">
           <img
             className="rounded-full bg-gray-300 h-10 w-10 m-2"
             src={channelInfo?.thumbnails?.default?.url}

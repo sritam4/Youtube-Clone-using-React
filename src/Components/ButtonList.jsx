@@ -10,13 +10,22 @@ const ButtonList = () => {
     "Thriller",
     "Gaming",
     "Website",
-    "Computers",
+    "History",
+    "React",
+    "Thriller",
     "Gaming",
     "Website",
     "Computers",
+    "Gaming",
+    "Website",
+    "Gaming",
+    "Website",
+    "Computers",
+    "Gaming",
+    "Website",
   ];
   return (
-    <div className="w-full flex overflow-x-scroll no-scrollbar fixed mt-[-6px] bg-white pt-2 z-10">
+    <div className="w-full mx-auto flex overflow-x-scroll no-scrollbar fixed mt-[-6px] bg-white pt-2 z-10">
       {buttonNames.map((item, index) => {
         return (
           <div

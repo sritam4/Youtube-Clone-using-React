@@ -4,12 +4,12 @@ const appSlice = createSlice({
   name: "app",
   initialState: {
     isMenuOpen: true,
-    mainContainerMargin: "ml-40",
+    mainContainerMargin: "ml-44",
   },
   reducers: {
     toggleMenu: (state) => {
       state.isMenuOpen = !state.isMenuOpen;
-      state.mainContainerMargin = state.isMenuOpen ? "ml-40" : "ml-0";
+      state.mainContainerMargin = state.isMenuOpen ? "ml-44" : "ml-0";
     },
     closeMenu: (state) => {
       state.isMenuOpen = false;

@@ -1,16 +1,18 @@
 import "./App.css";
-import Header from "./Components/Header";
-import Body from "./Components/Body";
 import { Provider } from "react-redux";
 import store from "./Utils/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import VideoPage from "./Components/VideoPage";
 import MainContainer from "./Components/MainContainer";
+import AppLayout from "./Components/AppLayout";
+import ResultPage from "./Components/ResultPage";
+import Error from "./Components/Error";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Body />,
+    element: <AppLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -20,6 +22,10 @@ const appRouter = createBrowserRouter([
         path: "/watch",
         element: <VideoPage />,
       },
+      {
+        path: "/search",
+        element: <ResultPage />,
+      },
     ],
   },
 ]);
@@ -27,7 +33,6 @@ function App() {
   return (
     <div className="text-xl">
       <Provider store={store}>
-        <Header />
         <RouterProvider router={appRouter} />
       </Provider>
     </div>

@@ -43,7 +43,9 @@ const Comment = ({ snippet }) => {
           <div className="py-2 mr-3">
             <BiDislike className="text-2xl text-gray-600 mx-2" />
           </div>
-          <div className="py-2 mr-3 font-semibold cursor-pointer">Reply</div>
+          <div className="py-2 mr-3 text-xs font-semibold cursor-pointer">
+            Reply
+          </div>
         </div>
       </div>
     </div>

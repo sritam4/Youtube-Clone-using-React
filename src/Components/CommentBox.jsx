@@ -13,6 +13,7 @@ const CommentBox = ({ id, commentCount }) => {
 
   useEffect(() => {
     getCommentList();
+    // eslint-disable-next-line
   }, [id]);
 
   if (id) {

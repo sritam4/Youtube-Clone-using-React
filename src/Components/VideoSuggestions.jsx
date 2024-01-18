@@ -15,6 +15,7 @@ const VideoSuggestions = ({ id }) => {
     if (id) {
       getSuggestedVideos();
     }
+    // eslint-disable-next-line
   }, [id]);
 
   if (id) {
