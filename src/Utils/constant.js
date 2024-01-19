@@ -9,7 +9,7 @@ export const VIDEO_API_URL =
   "&id=";
 
 export const SEARCH_SUGGESTION_URL =
-  "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+  "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
 
 export const COMMENT_API_URL =
   "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&moderationStatus=published&order=time&key=" +

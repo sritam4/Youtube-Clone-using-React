@@ -16,7 +16,7 @@ const ResultVideoCard = ({ snippet, id }) => {
   } = snippet;
   const releaseDate = useDateDifference(publishedAt);
   const [channelInfo, setChannelInfo] = useState();
-  const [videoDuration, setVideoDuration] = useState();
+  const [videoDuration, setVideoDuration] = useState(0);
   const duration = useTimeFormatter(videoDuration);
 
   const getChannelInfo = async () => {
