@@ -24,7 +24,7 @@ const Sidebar = () => {
           <li>History</li>
           <li>Your videos</li>
           <li>Watch later</li>
-          <li>Your clops</li>
+          <li>Your clips</li>
         </ul>
       </div>
       <hr />

@@ -15,6 +15,7 @@ import useFormattedNumber from "../Utils/useFormattedNumber";
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
 import { PiShareFatLight } from "react-icons/pi";
+import LiveChatBox from "./LiveChatBox";
 
 const VideoPage = () => {
   const [searchParams] = useSearchParams();
@@ -141,8 +142,15 @@ const VideoPage = () => {
           />
         )}
       </div>
-      {/* Recomended Section */}
-      {<VideoSuggestions id={videoDetails?.snippet?.categoryId} />}
+      <div className=" lg:w-4/12 p-2 overflow-x-hidden mx-3 flex-col">
+        {/* LiveChat section */}
+        {console.log(videoDetails?.snippet?.liveBroadcastContent)}
+        {videoDetails?.snippet?.liveBroadcastContent === "live" ? (
+          <LiveChatBox id={videoId} />
+        ) : null}
+        {/* VideoRecomendation Section */}
+        {<VideoSuggestions id={videoDetails?.snippet?.categoryId} />}
+      </div>
     </div>
   );
 };

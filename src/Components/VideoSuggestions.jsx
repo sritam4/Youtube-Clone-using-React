@@ -20,7 +20,7 @@ const VideoSuggestions = ({ id }) => {
 
   if (id) {
     return (
-      <div className=" lg:w-4/12 p-2 overflow-x-hidden mx-3">
+      <div className="w-full p-2 overflow-x-hidden mx-3">
         {suggestedVideos?.map((item) => {
           return <VideoSuggestionCard key={item.id} {...item} />;
         })}
